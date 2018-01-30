@@ -1,0 +1,187 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--SplashScreen-->
+    <style name="SplashScreen" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/main1</item>
+        <item name="colorPrimaryDark">@color/main2</item>
+        <item name="colorAccent">@color/main3</item>
+    </style>
+
+    <!--Act Treinamento-->
+    <style name="ActTreinamento" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/azul1Treinamento</item>
+        <item name="colorPrimaryDark">@color/azul2Treinamento</item>
+        <item name="colorAccent">@color/azul3Treinamento</item>
+    </style>
+
+    <!--Act Treinamento-->
+    <style name="ActMain" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/main1</item>
+        <item name="colorPrimaryDark">@color/main2</item>
+        <item name="colorAccent">@color/main3</item>
+    </style>
+
+    <!--Act Calculadora-->
+    <style name="ActCalculadora" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/azul1Treinamento</item>
+        <item name="colorPrimaryDark">@color/cinza2Calculadora</item>
+        <item name="colorAccent">@color/azul3Treinamento</item>
+    </style>
+
+    <!--Act Sobre-->
+    <style name="ActSobre" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/sobre1</item>
+        <item name="colorPrimaryDark">@color/sobre2</item>
+        <item name="colorAccent">@color/sobre3</item>
+    </style>
+
+    <!--Act Mais-->
+    <style name="ActMais" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinza</item>
+        <item name="colorPrimaryDark">@color/azul1</item>
+        <item name="colorAccent">@color/azul1</item>
+    </style>
+
+    <!--Act Menos-->
+    <style name="ActMenos" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinza</item>
+        <item name="colorPrimaryDark">@color/vermelho1</item>
+        <item name="colorAccent">@color/vermelho1</item>
+    </style>
+
+    <!--Act 3-->
+    <style name="Act3" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinza</item>
+        <item name="colorPrimaryDark">@color/verde1</item>
+        <item name="colorAccent">@color/verde1</item>
+    </style>
+
+    <!--Act 4-->
+    <style name="Act4" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinza</item>
+        <item name="colorPrimaryDark">@color/amarelo1</item>
+        <item name="colorAccent">@color/amarelo1</item>
+    </style>
+
+    <!--Act 5-->
+    <style name="Act5" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinza</item>
+        <item name="colorPrimaryDark">@color/roxo</item>
+        <item name="colorAccent">@color/roxo</item>
+    </style>
+
+    <!--Act 6-->
+    <style name="Act6" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinza</item>
+        <item name="colorPrimaryDark">@color/laranja</item>
+        <item name="colorAccent">@color/laranja</item>
+    </style>
+
+    <!--Act 7-->
+    <style name="Act7" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinza</item>
+        <item name="colorPrimaryDark">@color/roza</item>
+        <item name="colorAccent">@color/roza</item>
+    </style>
+
+    <!--Act 8-->
+    <style name="Act8" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinza</item>
+        <item name="colorPrimaryDark">@color/azul2</item>
+        <item name="colorAccent">@color/azul2</item>
+    </style>
+
+    <!--Act 9-->
+    <style name="Act9" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinza</item>
+        <item name="colorPrimaryDark">@color/azul2</item>
+        <item name="colorAccent">@color/azul2</item>
+    </style>
+
+    <!--Act 10-->
+    <style name="Act10" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinza</item>
+        <item name="colorPrimaryDark">@color/roza</item>
+        <item name="colorAccent">@color/roza</item>
+    </style>
+
+    <!--Act 11-->
+    <style name="Act11" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinza</item>
+        <item name="colorPrimaryDark">@color/laranja</item>
+        <item name="colorAccent">@color/laranja</item>
+    </style>
+
+    <!--Act 12-->
+    <style name="Act12" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinza</item>
+        <item name="colorPrimaryDark">@color/roxo</item>
+        <item name="colorAccent">@color/roxo</item>
+    </style>
+
+    <!--Act 13-->
+    <style name="Act13" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinza</item>
+        <item name="colorPrimaryDark">@color/laranja</item>
+        <item name="colorAccent">@color/laranja</item>
+    </style>
+
+    <!--Act 14-->
+    <style name="Act14" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinza</item>
+        <item name="colorPrimaryDark">@color/verde2</item>
+        <item name="colorAccent">@color/verde2</item>
+    </style>
+
+    <!--Act 15-->
+    <style name="Act15" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinza</item>
+        <item name="colorPrimaryDark">@color/roxo</item>
+        <item name="colorAccent">@color/roxo</item>
+    </style>
+
+    <!--Act 16-->
+    <style name="Act16" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinza</item>
+        <item name="colorPrimaryDark">@color/verde3</item>
+        <item name="colorAccent">@color/verde3</item>
+    </style>
+
+    <!--Act Pausa-->
+    <style name="ActPausa" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cinza</item>
+        <item name="colorPrimaryDark">@color/azulPausa</item>
+        <item name="colorAccent">@color/azulPausa</item>
+    </style>
+
+</resources>

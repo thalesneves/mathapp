@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/landscape3"
+    tools:context="com.example.thalesdasilva.mathapp.MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="170px"
+        android:layout_height="170px"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/ic_e" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageView3"
+        android:layout_marginTop="17dp"
+        android:text="MathApp"
+        android:textAlignment="center"
+        android:textColor="@color/branco"
+        android:textSize="28sp"
+        android:textStyle="bold|italic" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="650px"
+        android:layout_marginTop="200dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnTreinamento"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/linearLayout2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/background_login"
+            android:elevation="10dp"
+            android:text="Treinamento"
+            android:textAllCaps="false"
+            android:textSize="35px" />
+
+        <Button
+            android:id="@+id/btnCalculadora"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/background_login"
+            android:elevation="10dp"
+            android:text="Calculadora"
+            android:textAllCaps="false"
+            android:textSize="35px" />
+
+        <Button
+            android:id="@+id/btnSobre"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/background_login"
+            android:elevation="10dp"
+            android:text="Sobre"
+            android:textAllCaps="false"
+            android:textSize="35px" />
+
+    </LinearLayout>
+
+</RelativeLayout>

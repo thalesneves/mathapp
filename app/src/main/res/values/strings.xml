@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">MathApp</string>
+    <string name="interrogacao">?</string>
+    <string name="btn3">a±b=?</string>
+    <string name="btn4">a±?=c</string>
+    <string name="btn7">a±b±?=c</string>
+    <string name="btn8">a&#215;b=?</string>
+    <string name="btn9">a&#215;?=c</string>
+    <string name="btn10">a&#247;b=?</string>
+    <string name="btn11">a&#247;?=c</string>
+    <string name="btn12">a&#215;&#247;b=?</string>
+    <string name="btn13">a±%?=c</string>
+    <string name="btn14">a^2=?</string>
+    <string name="btn15">a&#215;b±c=?</string>
+    <string name="btn16">a&#247;b±c=?</string>
+    <string name="btnXDiv">&#215;&#247;</string>
+
+    <!--Act Calculadora-->
+    <string name="btnDiv">&#247;</string>
+    <string name="btnX">&#215;</string>
+    <string name="P">.</string>
+    <string name="clean">clean</string>
+    <string name="cleanOneNumber">clean just one number</string>
+    <string name="sum">sum</string>
+    <string name="minus">minus</string>
+    <string name="error">Error</string>
+
+    <string name="mais">+</string>
+    <string name="menos">-</string>
+    <string name="maisOuMenos">±</string>
+    <string name="string13">±%</string>
+    <string name="porcentagem">%</string>
+</resources>

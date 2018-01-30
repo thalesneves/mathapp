@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MathApp</string>
+    <string name="btnDiv">&#247;</string>
+    <string name="btnX">&#215;</string>
+    <string name="P">,</string>
+    <string name="clean">limpando a tela</string>
+    <string name="cleanOneNumber">limpando apenas um número</string>
+    <string name="sum">mais</string>
+    <string name="minus">menos</string>
+    <string name="error">Erro</string>
+</resources>

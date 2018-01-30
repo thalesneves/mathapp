@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.thalesdasilva.mathapp">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_math_app_3"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/ic_math_app_3"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".ActSplashScreen"
+                  android:theme="@style/SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/ActMain"/>
+
+        <activity
+            android:name=".ActTreinamento"
+            android:theme="@style/ActTreinamento"/>
+
+        <activity
+            android:name=".ActCalculadora"
+            android:theme="@style/ActCalculadora"/>
+
+        <activity
+            android:name=".ActSobre"
+            android:theme="@style/ActSobre"/>
+
+        <activity
+            android:name=".Act1"
+            android:theme="@style/ActMais"/>
+
+        <activity
+            android:name=".ActPausa1"
+            android:theme="@style/ActPausa"/>
+
+        <activity
+            android:name=".Act2"
+            android:theme="@style/ActMenos"/>
+
+        <activity
+            android:name=".ActPausa2"
+            android:theme="@style/ActPausa"/>
+
+        <activity
+            android:name=".Act3"
+            android:theme="@style/Act3"/>
+
+        <activity
+            android:name=".ActPausa3"
+            android:theme="@style/ActPausa"/>
+
+        <activity
+            android:name=".Act4"
+            android:theme="@style/Act4"/>
+
+        <activity
+            android:name=".ActPausa4"
+            android:theme="@style/ActPausa"/>
+
+        <activity
+            android:name=".Act5"
+            android:theme="@style/Act5"/>
+
+        <activity
+            android:name=".ActPausa5"
+            android:theme="@style/ActPausa"/>
+
+        <activity
+            android:name=".Act6"
+            android:theme="@style/Act6"/>
+
+        <activity
+            android:name=".ActPausa6"
+            android:theme="@style/ActPausa"/>
+
+        <activity
+            android:name=".Act7"
+            android:theme="@style/Act7"/>
+
+        <activity
+            android:name=".ActPausa7"
+            android:theme="@style/ActPausa"/>
+
+        <activity
+            android:name=".Act8"
+            android:theme="@style/Act8"/>
+
+        <activity
+            android:name=".ActPausa8"
+            android:theme="@style/ActPausa"/>
+
+        <activity
+            android:name=".Act9"
+            android:theme="@style/Act9"/>
+
+        <activity
+            android:name=".ActPausa9"
+            android:theme="@style/ActPausa"/>
+
+        <activity
+            android:name=".Act10"
+            android:theme="@style/Act10"/>
+
+        <activity
+            android:name=".ActPausa10"
+            android:theme="@style/ActPausa"/>
+
+        <activity
+            android:name=".Act11"
+            android:theme="@style/Act11"/>
+
+        <activity
+            android:name=".ActPausa11"
+            android:theme="@style/ActPausa"/>
+
+        <activity
+            android:name=".Act12"
+            android:theme="@style/Act12"/>
+
+        <activity
+            android:name=".ActPausa12"
+            android:theme="@style/ActPausa"/>
+
+        <activity
+            android:name=".Act13"
+            android:theme="@style/Act13"/>
+
+        <activity
+            android:name=".ActPausa13"
+            android:theme="@style/ActPausa"/>
+
+        <activity
+            android:name=".Act14"
+            android:theme="@style/Act14"/>
+
+        <activity
+            android:name=".ActPausa14"
+            android:theme="@style/ActPausa"/>
+
+        <activity
+            android:name=".Act15"
+            android:theme="@style/Act15"/>
+
+        <activity
+            android:name=".ActPausa15"
+            android:theme="@style/ActPausa"/>
+
+        <activity
+            android:name=".Act16"
+            android:theme="@style/Act16"/>
+
+        <activity
+            android:name=".ActPausa16"
+            android:theme="@style/ActPausa"/>
+
+    </application>
+
+</manifest>

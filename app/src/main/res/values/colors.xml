@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#08b4a6</color>
+
+    <color name="cinzaButton">#d6d6d6</color>
+
+    <color name="branco">#ffffff</color>
+    <color name="preto">#000000</color>
+    <color name="azul1">#8c0994f7</color>
+    <color name="azul2">#8c001eff</color>
+    <color name="azul3">#8c000a58</color>
+    <color name="azul4">#8c28508c</color>
+    <color name="cinza">#686868</color>
+    <color name="vermelho1">#8cff0000</color>
+    <color name="vermelho2">#8cab0000</color>
+    <color name="verde1">#8c02c681</color>
+    <color name="verde2">#8c00973a</color>
+    <color name="verde3">#8c019cb1</color>
+    <color name="amarelo1">#8ce7c101</color>
+    <color name="amarelo2">#8c646900</color>
+    <color name="roxo">#8c9900ff</color>
+    <color name="laranja">#8cfc9700</color>
+    <color name="roza">#8cfc007a</color>
+
+    <!--Act Treinamento-->
+    <color name="azul1Treinamento">#FF01C3DE</color>
+    <color name="azul2Treinamento">#007ad2</color>
+    <color name="azul3Treinamento">#013a81</color>
+
+    <!--Act Main-->
+    <color name="main1">#000000</color>
+    <color name="main2">#001026</color>
+    <color name="main3">#000000</color>
+
+    <!--Act Calculadora-->
+    <color name="color1">#ffffff</color>
+    <color name="color2">#8caeaeae</color>
+    <color name="color3">#8b8b8b</color>
+    <color name="black">#000000</color>
+    <color name="azul1Calculadora">#8c00b4ce</color>
+    <color name="azul2Calculadora">#8c0096ac</color>
+    <color name="azul3Calculadora">#8c006b79</color>
+    <color name="azul4Calculadora">#8c004751</color>
+    <color name="cinza1Calculadora">#8c8b8b8b</color>
+    <color name="cinza2Calculadora">#8c797979</color>
+    <color name="cinza3Calculadora">#8c5c5c5c</color>
+    <color name="cinza4Calculadora">#8c313131</color>
+    <color name="verde1Calculadora">#8c00b373</color>
+    <color name="verde2Calculadora">#8c009660</color>
+    <color name="verde3Calculadora">#8c00603e</color>
+    <color name="verde4Calculadora">#8c003120</color>
+
+    <!--Act Sobre-->
+    <color name="sobre1">#004aaf</color>
+    <color name="sobre2">#423258</color><!--Essa é a parte de cima-->
+    <color name="sobre3">#004aaf</color>
+
+    <color name="azulPausa">#0b273b</color>
+
+</resources>
