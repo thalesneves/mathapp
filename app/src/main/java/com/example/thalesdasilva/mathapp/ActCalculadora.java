@@ -54,16 +54,62 @@ public class ActCalculadora extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_calculadora);
-
-        recuperarReferencia();
-
-        ouvintes();
-
         getSupportActionBar().hide();
+        recuperarReferencia();
+        ouvintes();
+        desabilitarEditTexts();
+        inicializarTextToSpeech();
+        listenerButtons();
+    }
 
+    private void recuperarReferencia() {
+        edtTela1    = findViewById(R.id.edtTela1);
+        edtTela2    = findViewById(R.id.edtTela2);
+        btn0        = findViewById(R.id.btn0);
+        btn1        = findViewById(R.id.btn1);
+        btn2        = findViewById(R.id.btn2);
+        btn3        = findViewById(R.id.btn3);
+        btn4        = findViewById(R.id.btn4);
+        btn5        = findViewById(R.id.btn5);
+        btn6        = findViewById(R.id.btn6);
+        btn7        = findViewById(R.id.btn7);
+        btn8        = findViewById(R.id.btn8);
+        btn9        = findViewById(R.id.btn9);
+        btnC        = findViewById(R.id.btnC);
+        btnDiv      = findViewById(R.id.btnDiv);
+        btnX        = findViewById(R.id.btnX);
+        btnSub      = findViewById(R.id.btnSub);
+        btnSum      = findViewById(R.id.btnSum);
+        btnP        = findViewById(R.id.btnP);
+        btnI        = findViewById(R.id.btnI);
+    }
+
+    private void ouvintes() {
+        btn0.setOnClickListener(this);
+        btn1.setOnClickListener(this);
+        btn2.setOnClickListener(this);
+        btn3.setOnClickListener(this);
+        btn4.setOnClickListener(this);
+        btn5.setOnClickListener(this);
+        btn6.setOnClickListener(this);
+        btn7.setOnClickListener(this);
+        btn8.setOnClickListener(this);
+        btn9.setOnClickListener(this);
+        btnC.setOnClickListener(this);
+        btnDiv.setOnClickListener(this);
+        btnX.setOnClickListener(this);
+        btnSub.setOnClickListener(this);
+        btnSum.setOnClickListener(this);
+        btnP.setOnClickListener(this);
+        btnI.setOnClickListener(this);
+    }
+
+    private void desabilitarEditTexts() {
         edtTela1.setKeyListener(null);
         edtTela2.setKeyListener(null);
+    }
 
+    private void inicializarTextToSpeech() {
         tts = new TextToSpeech(this,
                 new TextToSpeech.OnInitListener() {
                     @Override
@@ -73,7 +119,9 @@ public class ActCalculadora extends AppCompatActivity implements View.OnClickLis
                         }
                     }
                 });
+    }
 
+    private void listenerButtons() {
         btnP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,20 +240,6 @@ public class ActCalculadora extends AppCompatActivity implements View.OnClickLis
                 speakOutNow();
             }
         });
-    }
-
-    @Override
-    public void onInit(int text) {
-        if (text == TextToSpeech.SUCCESS) {
-            int language = tts.setLanguage(Locale.getDefault());
-
-            if (language == TextToSpeech.LANG_MISSING_DATA || language == TextToSpeech.LANG_NOT_SUPPORTED) {
-                edtTela1.setEnabled(true);
-                speakOutNow();
-            }
-        } else {
-            MessageBox.show(ActCalculadora.this, "Erro", "Erro desconhecido!");
-        }
     }
 
     private void speakOutNow() {
@@ -422,10 +456,6 @@ public class ActCalculadora extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    @Override
-    public void onClick(View v) {
-    }
-
     private void limparTelaClickable() {
         String edt = String.valueOf(edtTela1.getText());
 
@@ -438,48 +468,6 @@ public class ActCalculadora extends AppCompatActivity implements View.OnClickLis
     private void limparTelaPressed() {
         edtTela1.setText(null);
         edtTela2.setText(null);
-    }
-
-    private void recuperarReferencia() {
-        edtTela1    = findViewById(R.id.edtTela1);
-        edtTela2    = findViewById(R.id.edtTela2);
-        btn0        = findViewById(R.id.btn0);
-        btn1        = findViewById(R.id.btn1);
-        btn2        = findViewById(R.id.btn2);
-        btn3        = findViewById(R.id.btn3);
-        btn4        = findViewById(R.id.btn4);
-        btn5        = findViewById(R.id.btn5);
-        btn6        = findViewById(R.id.btn6);
-        btn7        = findViewById(R.id.btn7);
-        btn8        = findViewById(R.id.btn8);
-        btn9        = findViewById(R.id.btn9);
-        btnC        = findViewById(R.id.btnC);
-        btnDiv      = findViewById(R.id.btnDiv);
-        btnX        = findViewById(R.id.btnX);
-        btnSub      = findViewById(R.id.btnSub);
-        btnSum      = findViewById(R.id.btnSum);
-        btnP        = findViewById(R.id.btnP);
-        btnI        = findViewById(R.id.btnI);
-    }
-
-    private void ouvintes() {
-        btn0.setOnClickListener(this);
-        btn1.setOnClickListener(this);
-        btn2.setOnClickListener(this);
-        btn3.setOnClickListener(this);
-        btn4.setOnClickListener(this);
-        btn5.setOnClickListener(this);
-        btn6.setOnClickListener(this);
-        btn7.setOnClickListener(this);
-        btn8.setOnClickListener(this);
-        btn9.setOnClickListener(this);
-        btnC.setOnClickListener(this);
-        btnDiv.setOnClickListener(this);
-        btnX.setOnClickListener(this);
-        btnSub.setOnClickListener(this);
-        btnSum.setOnClickListener(this);
-        btnP.setOnClickListener(this);
-        btnI.setOnClickListener(this);
     }
 
     @Override
@@ -500,6 +488,24 @@ public class ActCalculadora extends AppCompatActivity implements View.OnClickLis
         finish();
 
         return true;
+    }
+
+    @Override
+    public void onInit(int text) {
+        if (text == TextToSpeech.SUCCESS) {
+            int language = tts.setLanguage(Locale.getDefault());
+
+            if (language == TextToSpeech.LANG_MISSING_DATA || language == TextToSpeech.LANG_NOT_SUPPORTED) {
+                edtTela1.setEnabled(true);
+                speakOutNow();
+            }
+        } else {
+            MessageBox.show(ActCalculadora.this, "Erro", "Erro desconhecido!");
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
     }
 
 }

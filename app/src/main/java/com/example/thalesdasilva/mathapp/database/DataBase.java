@@ -45,7 +45,7 @@ public class DataBase extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
-    public Integer buscarPontucaoAct1(Integer id) {
+    public Integer buscarPontucao(Integer id) {
         db = this.getReadableDatabase();
         String query = "select * from pontuacoes where id = " + id + "";
         Cursor cursor = db.rawQuery(query, null);

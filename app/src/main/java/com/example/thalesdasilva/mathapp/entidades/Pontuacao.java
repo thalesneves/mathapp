@@ -9,9 +9,9 @@ import java.io.Serializable;
 
 public class Pontuacao implements Serializable {
 
-    public static String TABELA = "pontuacoes";
-    public static String ID = "id";
-    public static String PONTUACAO = "pontuacao";
+    public static final String TABELA = "pontuacoes";
+    public static final String ID = "id";
+    public static final String PONTUACAO = "pontuacao";
 
     private Integer id;
     private Integer pontuacao;

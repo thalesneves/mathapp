@@ -1,6 +1,8 @@
 package com.example.thalesdasilva.mathapp;
 
 import android.content.Intent;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AlertDialog;
@@ -11,6 +13,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.thalesdasilva.mathapp.app.MessageBox;
+import com.example.thalesdasilva.mathapp.database.DataBase;
+import com.example.thalesdasilva.mathapp.dominio.RepositorioPontuacao;
+import com.example.thalesdasilva.mathapp.entidades.Pontuacao;
 
 import java.text.DecimalFormat;
 import java.util.Locale;
@@ -25,15 +30,18 @@ import java.util.TimerTask;
 
 public class Act11 extends AppCompatActivity implements View.OnClickListener, TextToSpeech.OnInitListener {
 
+    public static TextView      TXT_TEMPO;
+    public static TextView      TXT_PONTUACAO_ACERTO;
+    public static TextView      TXT_PONTUACAO_ERRO;
     public static TextView      TXT_NUM_1;
     public static TextView      TXT_NUM_2;
-    public static TextView      TXT_TEMPO;
-    public static TextView      TXT_PONTUACAO;
     public static TextToSpeech  TEXT_TO_SPEECH;
     public static Timer         TIMER;
-    public static Float         RESULTADO_CORRETO = 0f;
-    public static String        NUMERO_RANDOMICO_2_TXT = null;
-    public static Boolean       VERIFICAR_ONRESUME = Boolean.FALSE;
+    public static Float         RESULTADO_CORRETO;
+    public static String        NUMERO_RANDOMICO_2_TXT;
+    public static Boolean       VERIFICAR_ONRESUME;
+    public static final Integer ID_CLASSE = 11;
+    public static final String  PAR_PONTUACAO = "pontuacao";
 
     private Button btnResult1;
     private Button btnResult2;
@@ -42,26 +50,55 @@ public class Act11 extends AppCompatActivity implements View.OnClickListener, Te
     private Button btnParar;
     private Button btnRepetir;
 
-    private Random random = new Random();
+    private Random random;
 
-    private Integer numeroAleatorioParaAEscolhaDeQualBotaoASerPreenchido = random.nextInt(4) + 1;
-    private Integer seconds = 30;
+    private Integer numeroAleatorioParaAEscolhaDeQualBotaoASerPreenchido;
+    private Integer seconds;
 
-    private DecimalFormat df = new DecimalFormat("#.##");
+    private DecimalFormat df;
 
-    private String RESULTADO_CORRETOTxt = null;
+    private String RESULTADO_CORRETOTxt;
 
-    private Boolean voltarParaOMenuDeTreinamento = Boolean.FALSE;
+    private Boolean voltarParaOMenuDeTreinamento;
+    private Boolean verificarTotalErro;
+
+    private DataBase database;
+    private SQLiteDatabase conn;
+
+    private Pontuacao pontuacao;
+    private RepositorioPontuacao repositorioPontuacao;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_11);
-
         getSupportActionBar().hide();
-
         recuperandoReferencia();
+        inicializarTextToSpeech();
+        inicializarVariaveis();
+        carregarEstrutura();
+        iniciarTempo();
+        ouvintes();
+        verificarBundleExtras();
+        verificarBundleExtrasPontuacao();
+        inicializarBancoSQLite();
+    }
 
+    private void recuperandoReferencia() {
+        TXT_TEMPO               = findViewById(R.id.txtTempo);
+        TXT_PONTUACAO_ACERTO    = findViewById(R.id.txtPontuacaoAcerto);
+        TXT_PONTUACAO_ERRO      = findViewById(R.id.txtPontuacaoErro);
+        TXT_NUM_1               = findViewById(R.id.txtNum1);
+        TXT_NUM_2               = findViewById(R.id.txtNum2);
+        btnResult1              = findViewById(R.id.btnResult1);
+        btnResult2              = findViewById(R.id.btnResult2);
+        btnResult3              = findViewById(R.id.btnResult3);
+        btnResult4              = findViewById(R.id.btnResult4);
+        btnParar                = findViewById(R.id.btnParar);
+        btnRepetir              = findViewById(R.id.btnRepetir);
+    }
+
+    private void inicializarTextToSpeech() {
         TEXT_TO_SPEECH = new TextToSpeech(this,
                 new TextToSpeech.OnInitListener() {
                     @Override
@@ -74,63 +111,22 @@ public class Act11 extends AppCompatActivity implements View.OnClickListener, Te
                         }
                     }
                 });
+    }
 
+    private void inicializarVariaveis() {
+        RESULTADO_CORRETO = 0f;
+        NUMERO_RANDOMICO_2_TXT = null;
         VERIFICAR_ONRESUME = Boolean.FALSE;
+        random = new Random();
+        numeroAleatorioParaAEscolhaDeQualBotaoASerPreenchido = random.nextInt(4) + 1;
+        seconds = 30;
+        df = new DecimalFormat("#.##");
+        RESULTADO_CORRETOTxt = null;
         voltarParaOMenuDeTreinamento = Boolean.FALSE;
-
-        carregarEstrutura();
-        iniciarTempo();
-        ouvintes();
-
-        if (getIntent().getExtras() != null) {
-            Bundle bundle = getIntent().getExtras();
-            String pontos = bundle.getString("TXT_PONTUACAO");
-            TXT_PONTUACAO.setText(String.valueOf(pontos));
-        }
+        verificarTotalErro = Boolean.FALSE;
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        if (!btnParar.isPressed() && Boolean.FALSE == voltarParaOMenuDeTreinamento && Boolean.FALSE == VERIFICAR_ONRESUME) {
-            irParaActivityPausa11();
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        TEXT_TO_SPEECH.speak("Qual valor dividido a " + TXT_NUM_1.getText().toString() +
-                        " da o resultado de " + String.valueOf(RESULTADO_CORRETOTxt),
-                TextToSpeech.QUEUE_FLUSH, null);
-    }
-
-    @Override
-    public void onBackPressed() {
-        TEXT_TO_SPEECH.speak("Voltar para o menu de treinamento", TextToSpeech.QUEUE_FLUSH, null);
-    }
-
-    @Override
-    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-        TIMER.cancel();
-        voltarParaOMenuDeTreinamento = Boolean.TRUE;
-        bloquearBotoesResultados();
-        TEXT_TO_SPEECH.speak("Voltando para o menu de treinamento", TextToSpeech.QUEUE_FLUSH, null);
-
-        boolean speakingEnd = TEXT_TO_SPEECH.isSpeaking();
-
-        do {
-            speakingEnd = TEXT_TO_SPEECH.isSpeaking();
-        } while (speakingEnd);
-
-        Intent it = new Intent(Act11.this, ActTreinamento.class);
-        startActivity(it);
-
-        return true;
-    }
-
-    public void carregarEstrutura() {
+    private void carregarEstrutura() {
         desbloquearBotoesResultados();
 
         float numeroRandomico1 = (int) (Math.random() * 10);
@@ -429,7 +425,7 @@ public class Act11 extends AppCompatActivity implements View.OnClickListener, Te
         });
     }
 
-    public void iniciarTempo() {
+    private void iniciarTempo() {
         TIMER = new Timer();
         TIMER.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -444,6 +440,7 @@ public class Act11 extends AppCompatActivity implements View.OnClickListener, Te
                         if (seconds == 0) {
                             TIMER.cancel();
                             bloquearBotoesResultados();
+                            TXT_PONTUACAO_ERRO.setText(String.valueOf(Integer.valueOf((String) TXT_PONTUACAO_ERRO.getText()) + 1));
 
                             TEXT_TO_SPEECH.speak("Seu tempo acabou vamos para o próximo desafio, o valor era de " +
                                             String.valueOf(NUMERO_RANDOMICO_2_TXT),
@@ -468,68 +465,7 @@ public class Act11 extends AppCompatActivity implements View.OnClickListener, Te
         }, 0, 1000);
     }
 
-    public void recuperandoReferencia() {
-        TXT_NUM_1       = findViewById(R.id.txtNum1);
-        TXT_NUM_2       = findViewById(R.id.txtNum2);
-        TXT_TEMPO       = findViewById(R.id.txtTempo);
-        TXT_PONTUACAO   = findViewById(R.id.txtPontuacao);
-        btnResult1      = findViewById(R.id.btnResult1);
-        btnResult2      = findViewById(R.id.btnResult2);
-        btnResult3      = findViewById(R.id.btnResult3);
-        btnResult4      = findViewById(R.id.btnResult4);
-        btnParar        = findViewById(R.id.btnParar);
-        btnRepetir      = findViewById(R.id.btnRepetir);
-    }
-
-    @Override
-    public void onInit(int text) {
-        if (text == TextToSpeech.SUCCESS) {
-            int language = TEXT_TO_SPEECH.setLanguage(Locale.getDefault());
-
-            if (language == TextToSpeech.LANG_MISSING_DATA || language == TextToSpeech.LANG_NOT_SUPPORTED) {
-                speakOutNow();
-            }
-        } else {
-            MessageBox.show(Act11.this, "Erro", "Erro no TextSpeech!");
-        }
-    }
-
-    private void speakOutNow() {
-        if (btnResult1.isPressed()) {
-            String speech = btnResult1.getText().toString();
-            TEXT_TO_SPEECH.speak(speech, TextToSpeech.QUEUE_FLUSH, null);
-        }
-
-        if (btnResult2.isPressed()) {
-            String speech = btnResult2.getText().toString();
-            TEXT_TO_SPEECH.speak(speech, TextToSpeech.QUEUE_FLUSH, null);
-        }
-
-        if (btnResult3.isPressed()) {
-            String speech = btnResult3.getText().toString();
-            TEXT_TO_SPEECH.speak(speech, TextToSpeech.QUEUE_FLUSH, null);
-        }
-
-        if (btnResult4.isPressed()) {
-            String speech = btnResult4.getText().toString();
-            TEXT_TO_SPEECH.speak(speech, TextToSpeech.QUEUE_FLUSH, null);
-        }
-
-        if (btnParar.isPressed()) {
-            TEXT_TO_SPEECH.speak("Pausar o jogo", TextToSpeech.QUEUE_FLUSH, null);
-        }
-
-        if (btnRepetir.isPressed()) {
-            TEXT_TO_SPEECH.speak("Repetindo a expressão, qual valor dividido a " + TXT_NUM_1.getText().toString() +
-                    " da o resultado de " + String.valueOf(RESULTADO_CORRETOTxt), TextToSpeech.QUEUE_FLUSH, null);
-        }
-    }
-
-    @Override
-    public void onClick(View view) {
-    }
-
-    public void ouvintes() {
+    private void ouvintes() {
         btnResult1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -573,7 +509,41 @@ public class Act11 extends AppCompatActivity implements View.OnClickListener, Te
         });
     }
 
-    public void acertarSpeak() {
+    private void verificarBundleExtras() {
+        if (getIntent().getExtras() != null) {
+            Bundle bundle = getIntent().getExtras();
+            String pontosAcertos = bundle.getString("TXT_PONTUACAO_ACERTO");
+            String pontosErros = bundle.getString("TXT_PONTUACAO_ERRO");
+            TXT_PONTUACAO_ACERTO.setText(String.valueOf(pontosAcertos));
+            TXT_PONTUACAO_ERRO.setText(String.valueOf(pontosErros));
+        }
+    }
+
+    private void verificarBundleExtrasPontuacao() {
+        Bundle bundle = getIntent().getExtras();
+
+        if ((bundle != null) && (bundle.containsKey(PAR_PONTUACAO))) {
+            pontuacao = (Pontuacao) bundle.getSerializable(PAR_PONTUACAO);
+        } else {
+            pontuacao = new Pontuacao();
+            pontuacao.setId(ID_CLASSE);
+        }
+    }
+
+    private void inicializarBancoSQLite() {
+        try {
+            database = new DataBase(Act11.this);
+            conn = database.getWritableDatabase();
+
+            repositorioPontuacao = new RepositorioPontuacao(conn);
+
+//            MessageBox.show(Act1.this, "Mensagem", "Conexão criada com sucesso!");
+        } catch (SQLException e) {
+            MessageBox.show(this, "Erro", "Erro ao criar o Banco de Dados: " + e.getMessage());
+        }
+    }
+
+    private void acertarSpeak() {
         int numeroRandom = random.nextInt(5) + 1;
 
         if (numeroRandom == 1) {
@@ -589,7 +559,7 @@ public class Act11 extends AppCompatActivity implements View.OnClickListener, Te
         }
     }
 
-    public void errarSpeak() {
+    private void errarSpeak() {
         int numeroRandom = random.nextInt(5) + 1;
 
         if (numeroRandom == 1) {
@@ -624,7 +594,8 @@ public class Act11 extends AppCompatActivity implements View.OnClickListener, Te
         iniciarTempo();
         carregarEstrutura();
         numeroAleatorioParaAEscolhaDeQualBotaoASerPreenchido = random.nextInt(4) + 1;
-        TXT_PONTUACAO.setText(String.valueOf(Integer.valueOf((String) TXT_PONTUACAO.getText()) + 1));
+        TXT_PONTUACAO_ACERTO.setText(String.valueOf(Integer.valueOf((String) TXT_PONTUACAO_ACERTO.getText()) + 1));
+        salvar();
     }
 
     private void errar() {
@@ -637,19 +608,27 @@ public class Act11 extends AppCompatActivity implements View.OnClickListener, Te
             speakingEnd = TEXT_TO_SPEECH.isSpeaking();
         } while (speakingEnd);
 
-        seconds = 30;
-        iniciarTempo();
-        carregarEstrutura();
-        numeroAleatorioParaAEscolhaDeQualBotaoASerPreenchido = random.nextInt(4) + 1;
+        TXT_PONTUACAO_ERRO.setText(String.valueOf(Integer.valueOf((String) TXT_PONTUACAO_ERRO.getText()) + 1));
+        verificarTotalErros();
     }
 
-    private void desbloquearBotoesResultados() {
-        btnResult1.setEnabled(true);
-        btnResult2.setEnabled(true);
-        btnResult3.setEnabled(true);
-        btnResult4.setEnabled(true);
-        btnParar.setEnabled(true);
-        btnRepetir.setEnabled(true);
+    private void verificarTotalErros() {
+        verificarTotalErro = Boolean.TRUE;
+        int totalErros = Integer.parseInt(TXT_PONTUACAO_ERRO.getText().toString());
+
+        if (totalErros == 1) {
+            TIMER.cancel();
+            TEXT_TO_SPEECH.shutdown();
+
+            Intent it = new Intent(Act11.this, ActGrafico.class);
+            startActivity(it);
+            finish();
+        } else {
+            seconds = 30;
+            iniciarTempo();
+            carregarEstrutura();
+            numeroAleatorioParaAEscolhaDeQualBotaoASerPreenchido = random.nextInt(4) + 1;
+        }
     }
 
     private void bloquearBotoesResultados() {
@@ -661,14 +640,139 @@ public class Act11 extends AppCompatActivity implements View.OnClickListener, Te
         btnRepetir.setEnabled(false);
     }
 
+    private void desbloquearBotoesResultados() {
+        btnResult1.setEnabled(true);
+        btnResult2.setEnabled(true);
+        btnResult3.setEnabled(true);
+        btnResult4.setEnabled(true);
+        btnParar.setEnabled(true);
+        btnRepetir.setEnabled(true);
+    }
+
     private void irParaActivityPausa11() {
         Integer tempo = Integer.parseInt(String.valueOf(TXT_TEMPO.getText()));
-        String pontos = TXT_PONTUACAO.getText().toString();
+        String pontosAcerto = TXT_PONTUACAO_ACERTO.getText().toString();
+        String pontosErro = TXT_PONTUACAO_ERRO.getText().toString();
         TIMER.cancel();
         Intent it = new Intent(Act11.this, ActPausa11.class);
         it.putExtra("TXT_TEMPO", tempo);
-        it.putExtra("TXT_PONTUACAO", pontos);
+        it.putExtra("TXT_PONTUACAO_ACERTO", pontosAcerto);
+        it.putExtra("TXT_PONTUACAO_ERRO", pontosErro);
         startActivity(it);
+    }
+
+    private void speakOutNow() {
+        if (btnResult1.isPressed()) {
+            String speech = btnResult1.getText().toString();
+            TEXT_TO_SPEECH.speak(speech, TextToSpeech.QUEUE_FLUSH, null);
+        }
+
+        if (btnResult2.isPressed()) {
+            String speech = btnResult2.getText().toString();
+            TEXT_TO_SPEECH.speak(speech, TextToSpeech.QUEUE_FLUSH, null);
+        }
+
+        if (btnResult3.isPressed()) {
+            String speech = btnResult3.getText().toString();
+            TEXT_TO_SPEECH.speak(speech, TextToSpeech.QUEUE_FLUSH, null);
+        }
+
+        if (btnResult4.isPressed()) {
+            String speech = btnResult4.getText().toString();
+            TEXT_TO_SPEECH.speak(speech, TextToSpeech.QUEUE_FLUSH, null);
+        }
+
+        if (btnParar.isPressed()) {
+            TEXT_TO_SPEECH.speak("Pausar o jogo", TextToSpeech.QUEUE_FLUSH, null);
+        }
+
+        if (btnRepetir.isPressed()) {
+            TEXT_TO_SPEECH.speak("Repetindo a expressão, qual valor dividido a " + TXT_NUM_1.getText().toString() +
+                    " da o resultado de " + String.valueOf(RESULTADO_CORRETOTxt), TextToSpeech.QUEUE_FLUSH, null);
+        }
+    }
+
+    private void salvar() {
+        try {
+            Integer pontuacaoBuscar = database.buscarPontucao(ID_CLASSE);
+            Integer pontuacaoAcerto = Integer.parseInt(TXT_PONTUACAO_ACERTO.getText().toString());
+
+            if (pontuacaoBuscar < pontuacaoAcerto) {
+                pontuacao.setPontuacao(pontuacaoAcerto);
+
+                repositorioPontuacao.alterar(pontuacao);
+            }
+        } catch (Exception e) {
+            MessageBox.show(Act11.this, "Erro", "Erro ao salvar os dados" + e.getMessage());
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TEXT_TO_SPEECH.speak("Qual valor dividido a " + TXT_NUM_1.getText().toString() +
+                        " da o resultado de " + String.valueOf(RESULTADO_CORRETOTxt),
+                TextToSpeech.QUEUE_FLUSH, null);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (!btnParar.isPressed() && Boolean.FALSE == voltarParaOMenuDeTreinamento && Boolean.FALSE == VERIFICAR_ONRESUME && Boolean.FALSE == verificarTotalErro) {
+            irParaActivityPausa11();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (conn != null) {
+            conn.close();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        TEXT_TO_SPEECH.speak("Voltar para o menu de treinamento", TextToSpeech.QUEUE_FLUSH, null);
+    }
+
+    @Override
+    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
+        TIMER.cancel();
+        voltarParaOMenuDeTreinamento = Boolean.TRUE;
+        bloquearBotoesResultados();
+        TEXT_TO_SPEECH.speak("Voltando para o menu de treinamento", TextToSpeech.QUEUE_FLUSH, null);
+
+        boolean speakingEnd = TEXT_TO_SPEECH.isSpeaking();
+
+        do {
+            speakingEnd = TEXT_TO_SPEECH.isSpeaking();
+        } while (speakingEnd);
+
+        Intent it = new Intent(Act11.this, ActTreinamento.class);
+        startActivity(it);
+        finish();
+
+        return true;
+    }
+
+    @Override
+    public void onInit(int text) {
+        if (text == TextToSpeech.SUCCESS) {
+            int language = TEXT_TO_SPEECH.setLanguage(Locale.getDefault());
+
+            if (language == TextToSpeech.LANG_MISSING_DATA || language == TextToSpeech.LANG_NOT_SUPPORTED) {
+                speakOutNow();
+            }
+        } else {
+            MessageBox.show(Act11.this, "Erro", "Erro no TextSpeech!");
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
     }
 
 }

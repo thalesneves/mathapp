@@ -26,11 +26,17 @@ public class ActSobre extends AppCompatActivity implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_sobre);
-
         getSupportActionBar().hide();
+        recuperandoReferencia();
+        inicializarTextToSpeech();
+        listenerButton();
+    }
 
+    private void recuperandoReferencia() {
         btnSpeak = findViewById(R.id.btnSpeak);
+    }
 
+    private void inicializarTextToSpeech() {
         textToSpeech = new TextToSpeech(this,
                 new TextToSpeech.OnInitListener() {
 
@@ -50,7 +56,9 @@ public class ActSobre extends AppCompatActivity implements View.OnClickListener,
                         }
                     }
                 });
+    }
 
+    private void listenerButton() {
         btnSpeak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,27 +67,16 @@ public class ActSobre extends AppCompatActivity implements View.OnClickListener,
         });
     }
 
-    @Override
-    public void onClick(View view) {
-    }
-
-    @Override
-    public void onInit(int text) {
-        if (text == TextToSpeech.SUCCESS) {
-            int language = textToSpeech.setLanguage(Locale.getDefault());
-
-            if (language == TextToSpeech.LANG_MISSING_DATA || language == TextToSpeech.LANG_NOT_SUPPORTED) {
-                speakOutNow();
-            }
-        } else {
-            MessageBox.show(ActSobre.this, "Erro", "Erro desconhecido!");
-        }
-    }
-
     private void speakOutNow() {
         if (btnSpeak.isPressed()) {
             textToSpeech.speak("Trabalho de graduação, Instituição: Fatec Ourinhos, Tema: Software educacional voltado para o ensino da matemática, Nome: Thales da Silva Neves, Orientador: Jean Daniel Henri Merlin Andreazza", TextToSpeech.QUEUE_FLUSH, null);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        textToSpeech.shutdown();
     }
 
     @Override
@@ -103,9 +100,20 @@ public class ActSobre extends AppCompatActivity implements View.OnClickListener,
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        textToSpeech.shutdown();
+    public void onInit(int text) {
+        if (text == TextToSpeech.SUCCESS) {
+            int language = textToSpeech.setLanguage(Locale.getDefault());
+
+            if (language == TextToSpeech.LANG_MISSING_DATA || language == TextToSpeech.LANG_NOT_SUPPORTED) {
+                speakOutNow();
+            }
+        } else {
+            MessageBox.show(ActSobre.this, "Erro", "Erro desconhecido!");
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
     }
 
 }

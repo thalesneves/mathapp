@@ -29,9 +29,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         getSupportActionBar().hide();
+        inicializarTextToSpeech();
+        recuperandoReferencia();
+        listenerButtons();
+        ouvintes();
+    }
 
+    private void inicializarTextToSpeech() {
         textToSpeech = new TextToSpeech(this,
                 new TextToSpeech.OnInitListener() {
                     @Override
@@ -41,11 +46,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 });
+    }
 
+    private void recuperandoReferencia() {
         btnTreinamento  = findViewById(R.id.btnTreinamento);
         btnCalculadora  = findViewById(R.id.btnCalculadora);
         btnSobre        = findViewById(R.id.btnSobre);
+    }
 
+    private void listenerButtons() {
         btnTreinamento.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -99,8 +108,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
             }
         });
+    }
 
-        ouvintes();
+    public void ouvintes() {
+        btnTreinamento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speakOutNow();
+            }
+        });
+
+        btnCalculadora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speakOutNow();
+            }
+        });
+
+        btnSobre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                speakOutNow();
+            }
+        });
     }
 
     @Override
@@ -155,29 +185,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-    }
-
-    public void ouvintes() {
-        btnTreinamento.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                speakOutNow();
-            }
-        });
-
-        btnCalculadora.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                speakOutNow();
-            }
-        });
-
-        btnSobre.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                speakOutNow();
-            }
-        });
     }
 
 }

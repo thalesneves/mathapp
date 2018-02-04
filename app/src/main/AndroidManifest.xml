@@ -163,6 +163,9 @@
             android:name=".ActPausa16"
             android:theme="@style/ActPausa"/>
 
+        <activity
+            android:name=".ActGrafico"/>
+
     </application>
 
 </manifest>

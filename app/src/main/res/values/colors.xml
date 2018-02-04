@@ -59,4 +59,7 @@
 
     <color name="azulPausa">#0b273b</color>
 
+    <!--Act Grafico-->
+    <color name="grafico1">#d9508a</color>
+    <color name="grafico2">#fe9507</color>
 </resources>

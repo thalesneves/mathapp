@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/bargraph"
+        android:layout_width="match_parent"
+        android:layout_height="900px"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
+
+    <RelativeLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="400px"
+        android:layout_marginTop="450dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnTreinamento"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="23dp"
+            android:layout_marginStart="23dp"
+            android:layout_marginTop="34dp"
+            android:background="@drawable/background_login"
+            android:elevation="10dp"
+            android:text="Voltar"
+            android:textAllCaps="false"
+            android:textSize="35px" />
+
+        <Button
+            android:id="@+id/btnIniciarNovamente"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/btnTreinamento"
+            android:layout_alignBottom="@+id/btnTreinamento"
+            android:layout_marginLeft="17dp"
+            android:layout_marginStart="17dp"
+            android:layout_toEndOf="@+id/btnTreinamento"
+            android:layout_toRightOf="@+id/btnTreinamento"
+            android:background="@drawable/background_signup"
+            android:elevation="10dp"
+            android:text="Iniciar"
+            android:textColor="@color/branco"
+            android:textAllCaps="false"
+            android:textSize="35px" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

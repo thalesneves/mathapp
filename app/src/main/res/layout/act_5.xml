@@ -203,14 +203,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Pontuação:"
+            android:layout_marginLeft="20px"
+            android:text="Acertos:"
             android:textAlignment="center"
             android:textColor="@color/cinza"
             android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txtPontuacao"
+            android:id="@+id/txtPontuacaoAcerto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="45px"
+            android:layout_weight="1"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/cinza"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Erros:"
+            android:textAlignment="center"
+            android:textColor="@color/cinza"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtPontuacaoErro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="45px"

@@ -12,7 +12,7 @@ public class ScriptSQL {
 
         sqlBuilder.append("create table if not exists pontuacoes ( ");
         sqlBuilder.append("id          integer  not null ");
-        sqlBuilder.append("primary key autoincrement, ");
+        sqlBuilder.append("primary key, ");
         sqlBuilder.append("pontuacao   integer ");
         sqlBuilder.append("); ");
 

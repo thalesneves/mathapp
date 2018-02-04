@@ -26,14 +26,15 @@ public class ActPausa7 extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_pausa_7);
-
         getSupportActionBar().hide();
+        recuperandoReferencia();
+        ouvintesDosBotoes();
+    }
 
+    private void recuperandoReferencia() {
         btnRetornar = findViewById(R.id.btnRetornar);
         btnIniciarNovamente = findViewById(R.id.btnIniciarNovamente);
         btnVoltarMenu = findViewById(R.id.btnVoltarMenu);
-
-        ouvintesDosBotoes();
     }
 
     private void ouvintesDosBotoes() {
@@ -79,6 +80,7 @@ public class ActPausa7 extends AppCompatActivity {
                                 if (seconds[0] == 0) {
                                     Act7.TIMER.cancel();
                                     Act7.VERIFICAR_ONRESUME = Boolean.TRUE;
+                                    Act7.TXT_PONTUACAO_ERRO.setText(String.valueOf(Integer.valueOf((String) Act7.TXT_PONTUACAO_ERRO.getText()) + 1));
                                     Act7.TEXT_TO_SPEECH.speak("Seu tempo acabou vamos para o próximo desafio, o resultado era de " +
                                             String.valueOf(Act7.RESULTADO_CORRETO), TextToSpeech.QUEUE_FLUSH, null);
 
@@ -88,9 +90,11 @@ public class ActPausa7 extends AppCompatActivity {
                                         speakingEnd = Act7.TEXT_TO_SPEECH.isSpeaking();
                                     } while (speakingEnd);
 
-                                    String pontos = bundle.getString("TXT_PONTUACAO").toString();
+                                    String pontosAcerto = bundle.getString("TXT_PONTUACAO_ACERTO").toString();
+                                    String pontosErro = bundle.getString("TXT_PONTUACAO_ERRO").toString();
                                     Intent it = new Intent(ActPausa7.this, Act7.class);
-                                    it.putExtra("TXT_PONTUACAO", pontos);
+                                    it.putExtra("TXT_PONTUACAO_ACERTO", pontosAcerto);
+                                    it.putExtra("TXT_PONTUACAO_ERRO", pontosErro);
                                     startActivity(it);
                                 }
 
@@ -162,6 +166,12 @@ public class ActPausa7 extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        Act7.TEXT_TO_SPEECH.speak("Jogo pausado", TextToSpeech.QUEUE_FLUSH, null);
+    }
+
+    @Override
     public void onBackPressed() {
         Act7.TEXT_TO_SPEECH.speak("Voltar para o menu de treinamento", TextToSpeech.QUEUE_FLUSH, null);
     }
@@ -182,12 +192,6 @@ public class ActPausa7 extends AppCompatActivity {
         finish();
 
         return true;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Act7.TEXT_TO_SPEECH.speak("Jogo pausado", TextToSpeech.QUEUE_FLUSH, null);
     }
 
 }
